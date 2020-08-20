@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-demo-v2
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: go-demo
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: go-demo
+        version: v2
+    spec:
+      containers:
+      - name: go-demo
+        image: arti.local:9094/k8s-docker-release-local/demo/go-demo:v2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred-local
